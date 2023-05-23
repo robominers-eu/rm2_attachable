@@ -4,7 +4,7 @@
     <static>true</static>
     <link name="link">
       <pose>0 0 0 1.5707 0 0</pose>
-      <collision name="starting_area_collision">
+      <!-- <collision name="starting_area_collision">
         <geometry>
           <mesh>
             <uri>meshes/Edgar_StartingArea.DAE</uri>
@@ -32,7 +32,7 @@
             <uri>meshes/Edgar_Section_01.DAE</uri>
           </mesh>
         </geometry>
-      </visual>
+      </visual> -->
 
       <collision name="section_02_collision">
         <geometry>

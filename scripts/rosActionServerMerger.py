@@ -97,6 +97,7 @@ class AttachableJointActionServer(Node):
                 feedback_msg = self.error
                 if (self.error == 0):
                     result.response = "True"
+
             else:
                 self.get_logger().info("Links are NOT in contact. End.")
                 result.response = "False"

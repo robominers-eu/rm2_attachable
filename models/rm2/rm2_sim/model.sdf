@@ -459,9 +459,8 @@
         </linear_acceleration>
       </imu>
     </sensor>
-
-
-
-
   </model>
+
+
+
 </sdf>

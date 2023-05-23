@@ -16,3 +16,26 @@ colcon build --symlink-install
 source install/setup.bash
 ```
 
+
+Test plugins separately:
+```
+ign topic -t /AttachableJoint -m ignition.msgs.StringMsg -p 'data: "[rm2_sim][couplingLink][rm2_sim_mining][base_link][attach]"'
+ 
+ign topic -t /AttachableJoint -m ignition.msgs.StringMsg -p 'data: "[rm2_sim][couplingLink][rm2_sim_mining][base_link][detach]"'
+ 
+ign topic -t /AttacherContact/contact -m ignition.msgs.StringMsg -p 'data:"[rm2_sim][couplingLink][rm2_sim_mining][base_link]"'
+
+ign topic -e -t /AttacherContact/touched
+
+ign topic -t /AttacherContact/contact -m ignition.msgs.StringMsg -p 'data:"end"'
+```
+
+Test ROS action (only works if the two parts are in contact):
+```
+ros2 action send_goal AttachableJoint rm2_attachable/action/AttachModel "{parent_model: "rm2_sim", parent_link: "couplingLink", child_model: "rm2_sim_mining", child_link: "base_link", attach: true}"
+```
+
+
+
+
+
