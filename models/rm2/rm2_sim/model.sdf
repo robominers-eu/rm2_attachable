@@ -76,17 +76,17 @@
 
     <!-- VELOCITY JOINT SCREW ACTUATOR BASE 1 - CLOCKWISE SCREW ACTUATOR 1 - LEFT -->
     <!--ign topic -t "/model/rm2_simple/joint/sa1::j_sb_cws/cmd_vel" -m ignition.msgs.Double -p "data: -1.0"-->
-    <plugin filename="ignition-gazebo-joint-controller-system" name="ignition::gazebo::systems::JointController">
+    <!-- <plugin filename="ignition-gazebo-joint-controller-system" name="ignition::gazebo::systems::JointController">
       <joint_name>sa1::j_sb_cws</joint_name>
       <initial_velocity>0.0</initial_velocity>
-    </plugin>
+    </plugin> -->
 
     <!-- VELOCITY JOINT SCREW ACTUATOR BASE 1 - COUNTER CLOCKWISE SCREW ACTUATOR 1 - LEFT -->
     <!--ign topic -t "/model/rm2_simple/joint/sa1::j_sb_ccws/cmd_vel" -m ignition.msgs.Double -p "data: -1.0"-->
-    <plugin filename="ignition-gazebo-joint-controller-system" name="ignition::gazebo::systems::JointController">
+    <!-- <plugin filename="ignition-gazebo-joint-controller-system" name="ignition::gazebo::systems::JointController">
       <joint_name>sa1::j_sb_ccws</joint_name>
       <initial_velocity>0.0</initial_velocity>
-    </plugin>
+    </plugin> -->
 
     <!-- INCLUDE SIMPLE LEG 2 - LEFT -->
     <include>
@@ -140,17 +140,17 @@
 
     <!-- VELOCITY JOINT SCREW ACTUATOR BASE 2 - CLOCKWISE SCREW ACTUATOR 2 - LEFT -->
     <!--ign topic -t "/model/rm2_simple/joint/sa2::j_sb_cws/cmd_vel" -m ignition.msgs.Double -p "data: -1.0"-->
-    <plugin filename="ignition-gazebo-joint-controller-system" name="ignition::gazebo::systems::JointController">
+    <!-- <plugin filename="ignition-gazebo-joint-controller-system" name="ignition::gazebo::systems::JointController">
       <joint_name>sa2::j_sb_cws</joint_name>
       <initial_velocity>0.0</initial_velocity>
-    </plugin>
+    </plugin> -->
 
     <!-- VELOCITY JOINT SCREW ACTUATOR BASE 2 - COUNTER CLOCKWISE SCREW ACTUATOR 2 - LEFT -->
     <!--ign topic -t "/model/rm2_simple/joint/sa2::j_sb_ccws/cmd_vel" -m ignition.msgs.Double -p "data: -1.0"-->
-    <plugin filename="ignition-gazebo-joint-controller-system" name="ignition::gazebo::systems::JointController">
+    <!-- <plugin filename="ignition-gazebo-joint-controller-system" name="ignition::gazebo::systems::JointController">
       <joint_name>sa2::j_sb_ccws</joint_name>
       <initial_velocity>0.0</initial_velocity>
-    </plugin>
+    </plugin> -->
 
     <!-- INCLUDE SIMPLE LEG 3 - RIGHT -->
     <include>
@@ -287,11 +287,28 @@
       </sensor>
     </link>
 
-    <!-- Joint camera - body -->
-    <joint name="j_rgbd_b" type="fixed">
-      <pose relative_to="base_link">0.090 0 0.038911 0 0 0</pose>
+  <!-- INCLUDE COUPLING HEAD -->
+    <link name = "couplingLink">
+      <collision name="collision_coupling">
+        <geometry>
+         <uri>model://rm2/rm2_sim/meshes/coupling_head.dae</uri>
+        </geometry>
+      </collision>
+
+      <visual name="visual_coupling">
+        <geometry>
+          <mesh>
+             <uri>model://rm2/rm2_sim/meshes/coupling_head.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+
+    <!-- Joint coupling disk - body -->
+    <joint name="j_c_b" type="fixed">
+      <pose relative_to="base_link">0.10196 0 0.0 0 0 0</pose>
       <parent> base_link</parent>
-      <child>d_435_camera</child>
+      <child>couplingLink</child>
     </joint>
 
     <!-- Include lidar for mapping -->
@@ -348,17 +365,17 @@
 
     <!-- VELOCITY JOINT SCREW ACTUATOR BASE 3 - CLOCKWISE SCREW ACTUATOR 3 - RIGHT -->
     <!--ign topic -t "/model/rm2_simple/joint/sa2::j_sb_cws/cmd_vel" -m ignition.msgs.Double -p "data: -1.0"-->
-    <plugin filename="ignition-gazebo-joint-controller-system" name="ignition::gazebo::systems::JointController">
+    <!-- <plugin filename="ignition-gazebo-joint-controller-system" name="ignition::gazebo::systems::JointController">
       <joint_name>sa2::j_sb_cws</joint_name>
       <initial_velocity>0.0</initial_velocity>
-    </plugin>
+    </plugin> -->
 
     <!-- VELOCITY JOINT SCREW ACTUATOR BASE 3 - COUNTER CLOCKWISE SCREW ACTUATOR 3 - RIGHT -->
     <!--ign topic -t "/model/rm2_simple/joint/sa2::j_sb_ccws/cmd_vel" -m ignition.msgs.Double -p "data: -1.0"-->
-    <plugin filename="ignition-gazebo-joint-controller-system" name="ignition::gazebo::systems::JointController">
+    <!-- <plugin filename="ignition-gazebo-joint-controller-system" name="ignition::gazebo::systems::JointController">
       <joint_name>sa2::j_sb_ccws</joint_name>
       <initial_velocity>0.0</initial_velocity>
-    </plugin>
+    </plugin> -->
 
     <!-- DIFFERENTIAL DRIVE -->
     <!--ign topic -t "/cmd_vel" -m ignition.msgs.Twist -p "linear: {x: 0.5}, angular: {z: 0.05}"-->
@@ -377,6 +394,74 @@
 
     <!-- joint state publisher plugin -->
     <plugin filename="libignition-gazebo-joint-state-publisher-system.so" name="ignition::gazebo::systems::JointStatePublisher"/>
+
+    <!-- imu publisher plugin -->
+    <plugin filename="libignition-gazebo-imu-system.so" name="ignition::gazebo::systems::Imu" />
+
+
+<sensor name="imu_sensor" type="imu">
+      <always_on>1</always_on>
+      <update_rate>1</update_rate>
+      <visualize>true</visualize>
+      <topic>imu</topic>
+      <imu>
+        <angular_velocity>
+          <x>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+              <bias_mean>0.0000075</bias_mean>
+              <bias_stddev>0.0000008</bias_stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+              <bias_mean>0.0000075</bias_mean>
+              <bias_stddev>0.0000008</bias_stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+              <bias_mean>0.0000075</bias_mean>
+              <bias_stddev>0.0000008</bias_stddev>
+            </noise>
+          </z>
+        </angular_velocity>
+        <linear_acceleration>
+          <x>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1.7e-2</stddev>
+              <bias_mean>0.1</bias_mean>
+              <bias_stddev>0.001</bias_stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1.7e-2</stddev>
+              <bias_mean>0.1</bias_mean>
+              <bias_stddev>0.001</bias_stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1.7e-2</stddev>
+              <bias_mean>0.1</bias_mean>
+              <bias_stddev>0.001</bias_stddev>
+            </noise>
+          </z>
+        </linear_acceleration>
+      </imu>
+    </sensor>
+
+
+
 
   </model>
 </sdf>
