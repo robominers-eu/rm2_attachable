@@ -35,7 +35,7 @@ def generate_launch_description():
                               '/cmd_vel' + '@geometry_msgs/msg/Twist' + ']ignition.msgs.Twist'
                           ],
                           remappings=[
-                              ('/rm2_module_A/cmd_vel', '/cmd_vel')
+                              ('/rm2_sim/cmd_vel', '/cmd_vel')
                           ])
 
     cmd_vel_B = Node(package='ros_ign_bridge', executable='parameter_bridge',

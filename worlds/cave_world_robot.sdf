@@ -80,7 +80,7 @@
         <!-- <model name="rm2_sim">
             <pose>-16.071 -2.33 0.66 0 0 0</pose> -->
         <model name='rm2_sim'>
-            <pose>-17.1666 -5.1486 0.666883 -0 6e-06 -1.95606</pose>
+            <pose>-16.195000 -2.79 0.666883 -0 -0.041488 -1.955380</pose>
             <!-- INCLUDE BODY NOT USING INCLUDE FOR URDF-->
             <link name='base_link'>
                 <pose>0 0 0 0 0 0</pose>
@@ -521,7 +521,7 @@
         </model>
 
         <model name="rm2_sim_mining">
-            <pose>-17.5087 -5.86989 0.66 0.022126 0.019270 -1.941930</pose>
+            <pose>-17.5087 -5.974270 0.66 0.015222 0.019271 -1.941930</pose>
             <!-- INCLUDE BODY NOT USING INCLUDE FOR URDF-->
             <link name='base_link'>
                 <pose>0 0 0 0 0 0</pose>

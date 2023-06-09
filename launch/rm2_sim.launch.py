@@ -46,12 +46,21 @@ def generate_launch_description():
                       executable='parameter_bridge',
                       arguments = ['/AttachableJoint@std_msgs/msg/String@ignition.msgs.StringMsg'],
                       output='screen')
+    
+    cmd_vel_bridge = Node(package='ros_ign_bridge', executable='parameter_bridge',
+                          namespace='rm2_sim',
+                          name='cmd_vel_bridge',
+                          output='screen',
+                          parameters=[{
+                              'use_sim_time': True
+                          }],
+                          arguments=[
+                              '/cmd_vel' + '@geometry_msgs/msg/Twist' + ']ignition.msgs.Twist'
+                          ],
+                          remappings=[
+                              ('/rm2_sim/cmd_vel', '/cmd_vel')
+                          ])
 
-
-    ign_bridge = IncludeLaunchDescription(
-		PythonLaunchDescriptionSource(
-		    os.path.join(pkg, 'launch', 'bridge.launch.py'),),
-        )
     
     
     return LaunchDescription([
@@ -63,6 +72,6 @@ def generate_launch_description():
         attacher_bridge1,
         attacher_bridge2,
         attacher_bridge3,
-        # ign_bridge,
+        cmd_vel_bridge,
     ])
 
