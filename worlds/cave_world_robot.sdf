@@ -317,7 +317,7 @@
             <link name="couplingLink">
                 <pose relative_to="j_c_b">0.0 0 0.0 0 0 0</pose>
                  <inertial>        <!-- Se usarán tolerancias de +-1g -->
-                    <mass>0.114</mass>
+                    <mass>0.1</mass>
                     <inertia>          <!-- Se usarán tolerancias de +-0.01kg/mm2 -->
                         <ixx>0.00773</ixx>
                         <ixy>0</ixy>
@@ -521,7 +521,7 @@
         </model>
 
         <model name="rm2_sim_mining">
-            <pose>-17.5087 -5.974270 0.66 0.015222 0.019271 -1.941930</pose>
+            <pose>-17.476800 -5.892150 0.66 0.015222 0.019271 -1.941930</pose>
             <!-- INCLUDE BODY NOT USING INCLUDE FOR URDF-->
             <link name='base_link'>
                 <pose>0 0 0 0 0 0</pose>

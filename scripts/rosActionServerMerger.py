@@ -111,7 +111,6 @@ class AttachableJointActionServer(Node):
             if (self.error == 0):
                 result.response = "True"
 
-        result.response = "Contact Done: " + result.response + " || Error: " + str(self.error)
         goal_handle.succeed()        
         return result
 
