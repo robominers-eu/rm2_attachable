@@ -36,6 +36,7 @@ endif()
 
 install(
 	DIRECTORY
+  config
 	ign
 	launch
 	models
@@ -51,7 +52,7 @@ ament_python_install_package(${PROJECT_NAME})
 # Install Python executables
 install(PROGRAMS
   scripts/rosActionServerMerger.py
-  scripts/attach_node.py
+  scripts/rm2_attachable_node.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

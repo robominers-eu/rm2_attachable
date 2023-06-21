@@ -10,6 +10,7 @@ from rclpy.action import ActionClient
 class AttachController(Node):
     def __init__(self):
         super().__init__('attach_controller')
+        self.get_logger().info('Executing attach action')
         self.contact_publisher = self.create_publisher(String, "/AttacherContact/contact" ,10)
         self.vel_publisher = self.create_publisher(Twist, '/cmd_vel', 10)
         self.touched_subscriber = self.create_subscription(Bool, "/AttacherContact/touched", self.touched_callback, 10)
@@ -45,10 +46,10 @@ class AttachController(Node):
 
         if result.response == "True":
             self.get_logger().info('Action succeeded!')
-            self.publish_velocity(-5.0)
-            self.wait(5.0)
+            self.publish_velocity(-7.0)
+            self.wait(3.0)
             self.publish_velocity(5.0)
-            self.wait(4.0)
+            self.wait(5.0)
             self.publish_velocity(0.0)
             self.get_logger().info("----------- RESUMING TO MINING TASK -----------")      
 
